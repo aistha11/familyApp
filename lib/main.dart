@@ -1,15 +1,23 @@
-import 'package:familyApp/pages/auth/login.dart';
-// import 'package:familyApp/pages/home/home.dart';
+import 'package:familyApp/model/user_repository.dart';
+import 'package:familyApp/pages/wrapper.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-void main () => runApp(MyApp());
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+    return ChangeNotifierProvider(
+      // builder: (_) => UserRepository.instance(),
+      create: (_)=> UserRepository.instance(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: "/",
+        routes: {
+          "/" : (_) => Wrapper(),
+        },
+      ),
     );
   }
 }

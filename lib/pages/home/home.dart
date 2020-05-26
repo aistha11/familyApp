@@ -1,6 +1,8 @@
+import 'package:familyApp/pages/widgets/drawer.dart';
 import 'package:familyApp/pages/widgets/ourFamily.dart';
 import 'package:familyApp/pages/widgets/profile.dart';
 import 'package:flutter/material.dart';
+import 'package:foldable_sidebar/foldable_sidebar.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -9,11 +11,9 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   var currentIndex = 0;
-  
+
   @override
   Widget build(BuildContext context) {
-
-    
     final _tabs = [
       Tab(
         text: 'Profile',
@@ -26,30 +26,34 @@ class _HomeState extends State<Home> {
     ];
 
     final _tabPages = [Profile(), OurFamily()];
+
+    FSBStatus status;
     return DefaultTabController(
       length: _tabs.length,
-      child: Scaffold(
-        drawer: Drawer(),
-        appBar: AppBar(
-          title: Text('Home'),
-          bottom: TabBar(tabs: _tabs),
-        ),
-        body: TabBarView(children: _tabPages),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: currentIndex,
-          items: [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.view_list), title: Text('Master List')),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.filter_list), title: Text('Personal List')),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.chat), title: Text('Family Chat')),
-          ],
-          onTap: (index){
-            setState(() {
-              currentIndex = index;
-            });
-          },
+      child: SafeArea(
+              child: Scaffold(
+          drawer: CustomDrawer(),
+          appBar: AppBar(
+            title: Text('Home'),
+            bottom: TabBar(tabs: _tabs),
+          ),
+          body: TabBarView(children: _tabPages),
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: currentIndex,
+            items: [
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.view_list), title: Text('Master List')),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.filter_list), title: Text('Personal List')),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.chat), title: Text('Family Chat')),
+            ],
+            onTap: (index) {
+              setState(() {
+                currentIndex = index;
+              });
+            },
+          ),
         ),
       ),
     );

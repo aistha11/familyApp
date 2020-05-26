@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
       },
       child: Scaffold(
         key: _key,
-        backgroundColor: Colors.lightGreen,
+        backgroundColor: Colors.tealAccent,
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
           child: SizedBox(
@@ -136,12 +136,12 @@ class _LoginFormState extends State<LoginForm> {
           children: <Widget>[
             Text(
               "Login",
-              style: Theme.of(context).textTheme.display1,
             ),
             const SizedBox(height: 20.0),
             TextFormField(
               validator: (val) {
                 if (val.isEmpty) return "Email is required";
+                return null;
               },
               controller: _email,
               textInputAction: TextInputAction.next,
@@ -154,6 +154,7 @@ class _LoginFormState extends State<LoginForm> {
             TextFormField(
               validator: (val) {
                 if (val.isEmpty) return "password is required";
+                return null;
               },
               obscureText: true,
               controller: _password,
@@ -224,13 +225,13 @@ class _SignupFormState extends State<SignupForm> {
           children: <Widget>[
             Text(
               "Sign up",
-              style: Theme.of(context).textTheme.display1,
             ),
             const SizedBox(height: 20.0),
             TextFormField(
               controller: _email,
               validator: (val) {
                 if (val.isEmpty) return "Email is required";
+                return null;
               },
               textInputAction: TextInputAction.next,
               decoration: InputDecoration(labelText: "email address"),
@@ -242,6 +243,7 @@ class _SignupFormState extends State<SignupForm> {
             TextFormField(
               validator: (val) {
                 if (val.isEmpty) return "Password is required";
+                return null;
               },
               obscureText: true,
               controller: _password,
@@ -256,6 +258,7 @@ class _SignupFormState extends State<SignupForm> {
               controller: _confirmPassword,
               validator: (val) {
                 if (val.isEmpty) return "Confirm password is required";
+                return null;
               },
               focusNode: confirmPasswordField,
               decoration: InputDecoration(labelText: "confirm password"),
