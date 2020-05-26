@@ -2,7 +2,6 @@ import 'package:familyApp/pages/widgets/drawer.dart';
 import 'package:familyApp/pages/widgets/ourFamily.dart';
 import 'package:familyApp/pages/widgets/profile.dart';
 import 'package:flutter/material.dart';
-import 'package:foldable_sidebar/foldable_sidebar.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -27,7 +26,6 @@ class _HomeState extends State<Home> {
 
     final _tabPages = [Profile(), OurFamily()];
 
-    FSBStatus status;
     return DefaultTabController(
       length: _tabs.length,
       child: SafeArea(
