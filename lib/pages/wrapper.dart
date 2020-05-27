@@ -9,17 +9,17 @@ import 'package:provider/provider.dart';
 class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer(builder: (context,UserRepository user,_){
-      switch (user.status){
+    return Consumer(builder: (context, UserRepository user, _) {
+      switch (user.status) {
         case Status.Uninitialized:
-              return Splash();
-            case Status.Unauthenticated:
-            case Status.Authenticating:
-              return Login();
-            case Status.Authenticated:
-              return Home();
-            default:
-              return Splash();
+          return Splash();
+        case Status.Unauthenticated:
+        case Status.Authenticating:
+          return Login();
+        case Status.Authenticated:
+          return Home();
+        default:
+          return Splash();
       }
     });
   }

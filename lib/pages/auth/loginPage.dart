@@ -84,21 +84,16 @@ class _LoginState extends State<Login> {
                   indent: 120.0,
                   endIndent: 120.0,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 40.0),
-                  child: Row(
-                    // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      //Login With Google
-                      buildButton('google', FontAwesomeIcons.google,
-                          Colors.orange, Colors.lime, googleSignIn),
-                      //or
-                      Text('or'),
-                      //Login With Facebook
-                      buildButton('facebook', FontAwesomeIcons.facebook,
-                          Colors.indigo, Colors.blue, facebookSignIn),
-                    ],
-                  ),
+                Wrap(
+                  alignment: WrapAlignment.center,
+                  children: [
+                    //Login With Google
+                    buildButton('google', FontAwesomeIcons.google,
+                        Colors.orange, Colors.lime, googleSignIn),
+                    //Login With Facebook
+                    buildButton('facebook', FontAwesomeIcons.facebook,
+                        Colors.indigo, Colors.blue, facebookSignIn),
+                  ],
                 ),
                 //Sign Up
                 OutlineButton(

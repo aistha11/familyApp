@@ -1,4 +1,5 @@
 import 'package:familyApp/model/user_repository.dart';
+import 'package:familyApp/pages/widgets/addPersonalNote.dart';
 import 'package:familyApp/pages/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
         initialRoute: "/",
         routes: {
           "/" : (_) => Wrapper(),
+          "/addPersonalNote" : (_) => AddPersonalNote(),
         },
       ),
     );

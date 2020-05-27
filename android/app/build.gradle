@@ -45,6 +45,7 @@ android {
         targetSdkVersion 28
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -64,4 +65,5 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     //Google Analytics if Enabled
     implementation 'com.google.firebase:firebase-analytics:17.2.2'
+    implementation 'androidx.multidex:multidex:2.0.1'
 }

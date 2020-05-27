@@ -16,53 +16,28 @@ class _ProfileState extends State<Profile> {
         children: [
           //Profile Details Section (Cover Photo, DP, Full Name, Address)
           Container(
-            child: Stack(
+            child: Column(
               children: <Widget>[
-                //cover Photo
-                buildCoverImage('images/cover.jpg'),
                 //Profile
-                buildDP('images/profile.jpg'),
+                buildDP(
+                    'https://www.kindpng.com/picc/m/404-4042774_profile-photo-circle-circle-profile-picture-png-transparent.png'),
+                //Profile Details
+                buildProfileDetails('Deadpool', 'Kathmandu', 'Nepal', showIcon),
               ],
             ),
           ),
-          //Profile Details
-          buildProfileDetails('Deadpool', 'Kathmandu', 'Nepal', showIcon),
         ],
       ),
     );
   }
 
-  Widget buildCoverImage(String img) {
-    return Container(
-      height: 200,
-      child: ClipRRect(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(16.0),
-          topRight: Radius.circular(16.0),
-          bottomLeft: Radius.circular(30.0),
-          bottomRight: Radius.circular(30.0),
-        ),
-        child: Image.asset(
-          img,
-          fit: BoxFit.cover,
-        ),
-      ),
-    );
-  }
-
-  Widget buildDP(String img) {
-    return Container(
-      width: 100.0,
-      height: 100.0,
-      margin: const EdgeInsets.only(left: 20, top: 130.0),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(20.0),
-        child: Image.asset(
-          img,
-          fit: BoxFit.cover,
-          height: 200.0,
-          width: 200.0,
-        ),
+  Widget buildDP(String img, {double radius = 80}) {
+    return CircleAvatar(
+      backgroundColor: Colors.white,
+      radius: radius,
+      child: CircleAvatar(
+        radius: radius - 2,
+        backgroundImage: NetworkImage(img),
       ),
     );
   }

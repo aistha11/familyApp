@@ -114,7 +114,7 @@ packages:
     source: hosted
     version: "1.0.4"
   firebase_core_web:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: firebase_core_web
       url: "https://pub.dartlang.org"
@@ -142,13 +142,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  foldable_sidebar:
-    dependency: "direct main"
-    description:
-      name: foldable_sidebar
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
   font_awesome_flutter:
     dependency: "direct main"
     description:
