@@ -9,7 +9,7 @@ class PersonalList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: notesDb.streamList(),
+      stream: personalnotesDb.streamList(),
       builder: (BuildContext context, AsyncSnapshot<List<Note>> snapshot) {
         if (snapshot.hasError)
           return Container(
@@ -34,7 +34,7 @@ class PersonalList extends StatelessWidget {
               },
               onDelete: (note) async {
                     if (await _confirmDelete(context)) {
-                      notesDb.removeItem(note.id);
+                      personalnotesDb.removeItem(note.id);
                     }
                   },
               onTap: (note) => Navigator.push(

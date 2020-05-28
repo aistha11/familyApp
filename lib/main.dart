@@ -1,4 +1,5 @@
 import 'package:familyApp/model/user_repository.dart';
+import 'package:familyApp/pages/widgets/addMasterNote.dart';
 import 'package:familyApp/pages/widgets/addPersonalNote.dart';
 import 'package:familyApp/pages/wrapper.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
         routes: {
           "/" : (_) => Wrapper(),
           "/addPersonalNote" : (_) => AddPersonalNote(),
+          "/addMasterNote" : (_) => AddMasterNote(),
         },
       ),
     );

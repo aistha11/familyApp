@@ -121,4 +121,6 @@ class QueryArgs {
   QueryArgs(this.key, this.value);
 }
 
-DatabaseService<Note> notesDb = DatabaseService<Note>("personal_notes",fromDS: (id,data) =>  Note.fromDS(id,data), toMap:(note) => note.toMap() );
+DatabaseService<Note> personalnotesDb = DatabaseService<Note>("personal_notes",fromDS: (id,data) =>  Note.fromDS(id,data), toMap:(note) => note.toMap() );
+
+DatabaseService<Note> masternotesDb = DatabaseService<Note>("master_notes",fromDS: (id,data) =>  Note.fromDS(id,data), toMap:(note) => note.toMap() );

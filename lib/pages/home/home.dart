@@ -47,6 +47,8 @@ class _HomeState extends State<Home> {
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
           onPressed: () {
+            if(currentIndex == 0)
+              Navigator.pushNamed(context, "/addMasterNote");
             if(currentIndex == 1)
               Navigator.pushNamed(context, "/addPersonalNote");
           },

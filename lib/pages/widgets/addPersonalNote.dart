@@ -14,9 +14,7 @@ class AddPersonalNote extends StatefulWidget {
 
 class _AddPersonalNoteState extends State<AddPersonalNote> {
   TextEditingController _titleController;
-  // TextEditingController _descriptionController;
   GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
-  // FocusNode _descriptionNode;
   bool _editMode;
   bool _processing;
   @override
@@ -25,8 +23,6 @@ class _AddPersonalNoteState extends State<AddPersonalNote> {
     _processing=false;
     _editMode = widget.note != null;
     _titleController = TextEditingController( text:  _editMode ? widget.note.title : null);
-    // _descriptionController = TextEditingController(text:  _editMode ? widget.note.description : null);
-    // _descriptionNode = FocusNode();
   }
 
   @override
@@ -34,7 +30,12 @@ class _AddPersonalNoteState extends State<AddPersonalNote> {
     return Scaffold(
       key: _key,
       appBar: AppBar(
-        title: Text('Add note'),
+        leading: IconButton(
+            icon: Icon(Icons.clear, size: 29.0, color: Colors.white),
+            onPressed: () {
+              Navigator.pop(context);
+            }),
+        title: Text('Add to Personal List'),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -46,27 +47,15 @@ class _AddPersonalNoteState extends State<AddPersonalNote> {
               decoration: InputDecoration(
                 labelText: "Enter title",
               ),
-              // textInputAction: TextInputAction.next,
-              // onEditingComplete: (){
-              //   FocusScope.of(context).requestFocus(_descriptionNode);
-              // },
             ),
             const SizedBox(height: 10.0),
-            // TextField(
-            //   controller: _descriptionController,
-            //   focusNode: _descriptionNode,
-            //   maxLines: 4,
-            //   decoration: InputDecoration(
-            //     labelText: "enter description",
-            //   ),
-            // ),
             const SizedBox(height: 10.0),
             RaisedButton(
               child: _processing ? CircularProgressIndicator() : Text("Save"),
               onPressed: _processing ? null  : ()async {
-                // setState(() {
-                //   _processing = true;
-                // });
+                setState(() {
+                  _processing = true;
+                });
                 if(_titleController.text.isEmpty) {
                   _key.currentState.showSnackBar(SnackBar(
                     content: Text("Title is required."),
@@ -76,25 +65,18 @@ class _AddPersonalNoteState extends State<AddPersonalNote> {
                 Note note = Note(
                   id: _editMode ? widget.note.id : null,
                   title: _titleController.text,
-                  // description: _descriptionController.text,
                   createdAt: DateTime.now(),
-                  userId: Provider.of<UserRepository>(context).user.uid,
+                  userId: Provider.of<UserRepository>(context,listen: false).user.uid,
                 );
                 if(_editMode) {
-                  await notesDb.updateItem(note);
+                  await personalnotesDb.updateItem(note);
                 }else {
-                  await notesDb.createItem(note);
+                  await personalnotesDb.createItem(note);
                 }
-                // setState(() {
-                //   _processing = false;
-                // });
-                /* _key.currentState.showSnackBar(SnackBar(
-                  content: Text("Notes saved successfully")
-                )); */
+                setState(() {
+                  _processing = false;
+                });
                 Navigator.pop(context);
-                /* FocusScope.of(context).requestFocus(FocusNode());
-                _titleController.clear();
-                _descriptionController.clear(); */
               },
             )
           ],
