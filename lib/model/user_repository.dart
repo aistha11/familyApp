@@ -1,3 +1,5 @@
+import 'package:familyApp/pages/home/familyChat/chat/helper/helperfunctions.dart';
+import 'package:familyApp/pages/home/familyChat/chat/services/database.dart';
 import 'package:flutter/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -9,6 +11,8 @@ class UserRepository with ChangeNotifier {
   FirebaseUser _user;
   GoogleSignIn _googleSignIn;
   Status _status = Status.Uninitialized;
+
+  DatabaseMethods databaseMethods = new DatabaseMethods();
 
   UserRepository.instance()
       : _auth = FirebaseAuth.instance,
@@ -36,6 +40,16 @@ class UserRepository with ChangeNotifier {
       _status = Status.Authenticating;
       notifyListeners();
       await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      Map<String,String> userDataMap = {
+                "userName" : password,
+                "userEmail" : email
+              };
+
+              databaseMethods.addUserInfo(userDataMap);
+
+              HelperFunctions.saveUserLoggedInSharedPreference(true);
+              HelperFunctions.saveUserNameSharedPreference(password);
+              HelperFunctions.saveUserEmailSharedPreference(email);
       return true;
     } catch (e) {
       _status = Status.Unauthenticated;

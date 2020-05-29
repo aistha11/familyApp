@@ -30,6 +30,7 @@ dependencies:
   cloud_firestore:
   flutter_slidable:
   firebase_core_web:
+  shared_preferences:
 
 
   # The following adds the Cupertino Icons font to your application.

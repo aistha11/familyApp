@@ -193,8 +193,8 @@ class _SignInState extends State<SignIn> {
               color: Colors.grey[200],
               child: TextFormField(
                 validator: (val) {
-                  if (val.isEmpty) return "*Email is required";
-                  return null;
+                  return RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(val) ?
+                          null : "*Enter correct email";
                 },
                 controller: _email,
                 textInputAction: TextInputAction.next,
@@ -325,8 +325,8 @@ class _SignUpState extends State<SignUp> {
               margin: EdgeInsets.only(left: 40, right: 40.0, top: 30.0),
               child: TextFormField(
                 validator: (val) {
-                  if (val.isEmpty) return "*Email is required";
-                  return null;
+                  return RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(val) ?
+                          null : "*Enter correct email";
                 },
                 controller: _email,
                 textInputAction: TextInputAction.next,

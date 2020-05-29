@@ -1,5 +1,6 @@
 // import 'dart:js';
-import 'package:familyApp/pages/home/familyChat/familyChat.dart';
+import 'package:familyApp/pages/home/familyChat/chat/views/chatrooms.dart';
+// import 'package:familyApp/pages/home/familyChat/familyChat.dart';
 import 'package:familyApp/pages/home/masterList/masterList.dart';
 import 'package:familyApp/pages/home/ourFamily/ourFamily.dart';
 import 'package:familyApp/pages/home/personalList/personalList.dart';
@@ -21,7 +22,8 @@ class _HomeState extends State<Home> {
     final _tabPages = [
       MasterList(),
       PersonalList(),
-      FamilyChat(),
+      // FamilyChat(),
+      ChatRoom(),
       Profile(),
       OurFamily(),
     ];
