@@ -1,4 +1,4 @@
-import 'package:familyApp/model/personal_note.dart';
+import 'package:familyApp/model/note.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 

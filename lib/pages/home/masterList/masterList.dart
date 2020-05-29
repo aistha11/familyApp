@@ -1,7 +1,7 @@
-import 'package:familyApp/model/personal_note.dart';
-import 'package:familyApp/pages/widgets/addPersonalNote.dart';
+import 'package:familyApp/model/note.dart';
+import 'package:familyApp/pages/home/masterList/addMasterNote.dart';
 import 'package:familyApp/pages/widgets/notesItem.dart';
-import 'package:familyApp/pages/widgets/personalListDetail.dart';
+// import 'package:familyApp/pages/widgets/listDetail.dart';
 import 'package:familyApp/services/db_service.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +27,7 @@ class MasterList extends StatelessWidget {
                 Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => AddPersonalNote(
+                          builder: (_) => AddMasterNote(
                             note: note,
                           ),
                         ));
@@ -37,13 +37,25 @@ class MasterList extends StatelessWidget {
                       masternotesDb.removeItem(note.id);
                     }
                   },
-              onTap: (note) => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => NoteDetailsPage(
-                          note: note,
-                        ),
-                      )),
+              // 
+               onTap: (note) {
+                showDialog(
+                  context: context,
+                  child: AlertDialog(
+                    title: Text(note.title),
+                    content: Container(
+                      height: 200.0,
+                      child: Column(
+                        children: [
+                          Text('Id : ${note.id}'),
+                          Text('Created At : ${note.createdAt}'),
+                          Text('User Id : ${note.userId}'),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
             );
           },
         );

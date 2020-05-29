@@ -1,6 +1,6 @@
 import 'package:familyApp/model/user_repository.dart';
-import 'package:familyApp/pages/widgets/addMasterNote.dart';
-import 'package:familyApp/pages/widgets/addPersonalNote.dart';
+import 'package:familyApp/pages/home/masterList/addMasterNote.dart';
+import 'package:familyApp/pages/home/personalList/addPersonalNote.dart';
 import 'package:familyApp/pages/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

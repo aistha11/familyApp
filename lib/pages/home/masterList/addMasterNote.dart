@@ -1,8 +1,7 @@
-import 'package:familyApp/model/personal_note.dart';
+import 'package:familyApp/model/note.dart';
 import 'package:familyApp/model/user_repository.dart';
 import 'package:familyApp/services/db_service.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class AddMasterNote extends StatefulWidget {

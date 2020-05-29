@@ -1,4 +1,4 @@
-import 'package:familyApp/model/personal_note.dart';
+import 'package:familyApp/model/note.dart';
 import 'package:flutter/material.dart';
 
 class NoteDetailsPage extends StatelessWidget {

@@ -1,10 +1,10 @@
 // import 'dart:js';
+import 'package:familyApp/pages/home/familyChat/familyChat.dart';
+import 'package:familyApp/pages/home/masterList/masterList.dart';
+import 'package:familyApp/pages/home/ourFamily/ourFamily.dart';
+import 'package:familyApp/pages/home/personalList/personalList.dart';
+import 'package:familyApp/pages/home/profile/profile.dart';
 import 'package:familyApp/pages/widgets/drawer.dart';
-import 'package:familyApp/pages/widgets/familyChat.dart';
-import 'package:familyApp/pages/widgets/masterList.dart';
-import 'package:familyApp/pages/widgets/ourFamily.dart';
-import 'package:familyApp/pages/widgets/personalList.dart';
-import 'package:familyApp/pages/widgets/profile.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -44,7 +44,7 @@ class _HomeState extends State<Home> {
           ],
         ),
         body: _tabPages[currentIndex],
-        floatingActionButton: FloatingActionButton(
+        floatingActionButton: currentIndex != 2 ?  FloatingActionButton(
           child: Icon(Icons.add),
           onPressed: () {
             if(currentIndex == 0)
@@ -52,7 +52,7 @@ class _HomeState extends State<Home> {
             if(currentIndex == 1)
               Navigator.pushNamed(context, "/addPersonalNote");
           },
-        ),
+        ) : null,
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: currentIndex,
           items: [

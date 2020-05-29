@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:familyApp/model/database_item.dart';
-import 'package:familyApp/model/personal_note.dart';
+import 'package:familyApp/model/note.dart';
 
 class DatabaseService<T extends DatabaseItem> {
   final String collection;
