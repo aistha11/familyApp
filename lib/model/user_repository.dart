@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:familyApp/pages/home/familyChat/chat/helper/helperfunctions.dart';
-import 'package:familyApp/pages/home/familyChat/chat/models/user.dart';
-import 'package:familyApp/pages/home/familyChat/chat/services/database.dart';
-import 'package:familyApp/utils/utilities.dart';
+// import 'package:familyApp/pages/home/familyChat/chat/helper/helperfunctions.dart';
+// import 'package:familyApp/pages/home/familyChat/chat/models/user.dart';
+// import 'package:familyApp/pages/home/familyChat/chat/services/database.dart';
+import 'package:familyApp/pages/home/familyChat/skype/models/user.dart';
+import 'package:familyApp/pages/home/familyChat/skype/utils/utilities.dart';
 import 'package:flutter/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -15,7 +16,7 @@ class UserRepository with ChangeNotifier {
   GoogleSignIn _googleSignIn;
   Status _status = Status.Uninitialized;
 
-  DatabaseMethods databaseMethods = new DatabaseMethods();
+  // DatabaseMethods databaseMethods = new DatabaseMethods();
 
   UserRepository.instance()
       : _auth = FirebaseAuth.instance,
@@ -41,9 +42,9 @@ class UserRepository with ChangeNotifier {
         .document(currentUser.uid)
         .setData(user.toMap(user));
 
-    HelperFunctions.saveUserLoggedInSharedPreference(true);
-    HelperFunctions.saveUserNameSharedPreference(username);
-    HelperFunctions.saveUserEmailSharedPreference(_user.email);
+    // HelperFunctions.saveUserLoggedInSharedPreference(true);
+    // HelperFunctions.saveUserNameSharedPreference(username);
+    // HelperFunctions.saveUserEmailSharedPreference(_user.email);
   }
 
   Future<bool> signIn(String email, String password) async {

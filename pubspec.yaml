@@ -31,6 +31,19 @@ dependencies:
   flutter_slidable:
   firebase_core_web:
   shared_preferences:
+  shimmer:
+  gradient_app_bar:
+  emoji_picker:
+  image_picker:
+  path_provider:
+  firebase_storage:
+  cached_network_image:
+  agora_rtc_engine:
+  permission_handler: 3.0.0
+  sqflite:
+  hive:
+  intl:
+  image:
 
 
   # The following adds the Cupertino Icons font to your application.

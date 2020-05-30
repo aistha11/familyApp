@@ -3,23 +3,19 @@ import 'package:familyApp/pages/home/familyChat/skype/provider/user_provider.dar
 import 'package:familyApp/pages/home/familyChat/skype/resources/auth_methods.dart';
 import 'package:familyApp/pages/home/familyChat/skype/screens/callscreens/pickup/pickup_layout.dart';
 import 'package:familyApp/pages/home/familyChat/skype/screens/pageviews/chats/chat_list_screen.dart';
-import 'package:familyApp/pages/home/masterList/masterList.dart';
-import 'package:familyApp/pages/home/ourFamily/ourFamily.dart';
-import 'package:familyApp/pages/home/personalList/personalList.dart';
-import 'package:familyApp/pages/home/profile/profile.dart';
-import 'package:familyApp/pages/widgets/drawer.dart';
+import 'package:familyApp/pages/home/familyChat/skype/screens/pageviews/logs/log_screen.dart';
+import 'package:familyApp/pages/home/familyChat/skype/utils/universal_variables.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 
-class Home extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeState extends State<Home> with WidgetsBindingObserver {
-  // var currentIndex = 0;
-
+class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   PageController pageController;
   int _page = 0;
   UserProvider userProvider;
@@ -101,95 +97,78 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    // final _tabPages = [
-    //   MasterList(),
-    //   PersonalList(),
-    //   // FamilyChat(),
-    //   // ChatRoom(),
-    //   ChatListScreen(),
-    //   Profile(),
-    //   OurFamily(),
-    // ];
+    double _labelFontSize = 10;
 
     return PickupLayout(
       scaffold: Scaffold(
-        backgroundColor: Colors.grey[200],
-        // drawer: CustomDrawer(),
-        // appBar: AppBar(
-        //   title: Text('Home'),
-        //   actions: [
-        //     IconButton(
-        //       icon: Icon(Icons.person_pin),
-        //       onPressed: () {},
-        //     ),
-        //     IconButton(
-        //       icon: Icon(Icons.people),
-        //       onPressed: () {},
-        //     ),
-        //   ],
-        // ),
+        backgroundColor: UniversalVariables.blackColor,
         body: PageView(
-          children: [
-            MasterList(),
-            PersonalList(),
+          children: <Widget>[
             ChatListScreen(),
+            LogScreen(),
+            Center(
+                child: Text(
+              "Contact Screen",
+              style: TextStyle(color: Colors.white),
+            )),
           ],
           controller: pageController,
           onPageChanged: onPageChanged,
           physics: NeverScrollableScrollPhysics(),
         ),
-        floatingActionButton: _page != 2
-            ? FloatingActionButton(
-                child: Icon(Icons.add),
-                onPressed: () {
-                  if (_page == 0)
-                    Navigator.pushNamed(context, "/addMasterNote");
-                  if (_page == 1)
-                    Navigator.pushNamed(context, "/addPersonalNote");
-                },
-              )
-            : null,
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _page,
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.view_list,
-                color: (_page == 0) ? Colors.lightBlue : Colors.grey,
-              ),
-              title: Text(
-                'Master List',
-                style: TextStyle(
-                  color: (_page == 0) ? Colors.lightBlue : Colors.grey,
+        bottomNavigationBar: Container(
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: CupertinoTabBar(
+              backgroundColor: UniversalVariables.blackColor,
+              items: <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.chat,
+                      color: (_page == 0)
+                          ? UniversalVariables.lightBlueColor
+                          : UniversalVariables.greyColor),
+                  title: Text(
+                    "Chats",
+                    style: TextStyle(
+                        fontSize: _labelFontSize,
+                        color: (_page == 0)
+                            ? UniversalVariables.lightBlueColor
+                            : Colors.grey),
+                  ),
                 ),
-              ),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.filter_list,
-                color: (_page == 1) ? Colors.lightBlue : Colors.grey,
-              ),
-              title: Text(
-                'Personal List',
-                style: TextStyle(
-                  color: (_page == 1) ? Colors.lightBlue : Colors.grey,
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.call,
+                      color: (_page == 1)
+                          ? UniversalVariables.lightBlueColor
+                          : UniversalVariables.greyColor),
+                  title: Text(
+                    "Calls",
+                    style: TextStyle(
+                        fontSize: _labelFontSize,
+                        color: (_page == 1)
+                            ? UniversalVariables.lightBlueColor
+                            : Colors.grey),
+                  ),
                 ),
-              ),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.chat,
-                color: (_page == 2) ? Colors.lightBlue : Colors.grey,
-              ),
-              title: Text(
-                'Family Chat',
-                style: TextStyle(
-                  color: (_page == 2) ? Colors.lightBlue : Colors.grey,
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.contact_phone,
+                      color: (_page == 2)
+                          ? UniversalVariables.lightBlueColor
+                          : UniversalVariables.greyColor),
+                  title: Text(
+                    "Contacts",
+                    style: TextStyle(
+                        fontSize: _labelFontSize,
+                        color: (_page == 2)
+                            ? UniversalVariables.lightBlueColor
+                            : Colors.grey),
+                  ),
                 ),
-              ),
+              ],
+              onTap: navigationTapped,
+              currentIndex: _page,
             ),
-          ],
-          onTap: navigationTapped,
+          ),
         ),
       ),
     );
