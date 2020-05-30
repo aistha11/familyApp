@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:familyApp/pages/home/familyChat/chat/helper/helperfunctions.dart';
+import 'package:familyApp/pages/home/familyChat/chat/models/user.dart';
 import 'package:familyApp/pages/home/familyChat/chat/services/database.dart';
+import 'package:familyApp/utils/utilities.dart';
 import 'package:flutter/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -23,11 +26,32 @@ class UserRepository with ChangeNotifier {
   Status get status => _status;
   FirebaseUser get user => _user;
 
+  Future<void> addDataToDb(FirebaseUser currentUser) async {
+    String username = Utils.getUsername(currentUser.email);
+
+    User user = User(
+        uid: currentUser.uid,
+        email: currentUser.email,
+        name: currentUser.displayName,
+        profilePhoto: currentUser.photoUrl,
+        username: username);
+
+    Firestore.instance
+        .collection("users")
+        .document(currentUser.uid)
+        .setData(user.toMap(user));
+
+    HelperFunctions.saveUserLoggedInSharedPreference(true);
+    HelperFunctions.saveUserNameSharedPreference(username);
+    HelperFunctions.saveUserEmailSharedPreference(_user.email);
+  }
+
   Future<bool> signIn(String email, String password) async {
     try {
       _status = Status.Authenticating;
       notifyListeners();
       await _auth.signInWithEmailAndPassword(email: email, password: password);
+      addDataToDb(_user);
       return true;
     } catch (e) {
       _status = Status.Unauthenticated;
@@ -35,21 +59,15 @@ class UserRepository with ChangeNotifier {
       return false;
     }
   }
+
   Future<bool> signUp(String email, String password) async {
     try {
       _status = Status.Authenticating;
       notifyListeners();
-      await _auth.createUserWithEmailAndPassword(email: email, password: password);
-      Map<String,String> userDataMap = {
-                "userName" : password,
-                "userEmail" : email
-              };
-
-              databaseMethods.addUserInfo(userDataMap);
-
-              HelperFunctions.saveUserLoggedInSharedPreference(true);
-              HelperFunctions.saveUserNameSharedPreference(password);
-              HelperFunctions.saveUserEmailSharedPreference(email);
+      await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      print(_user.email);
+      addDataToDb(_user);
       return true;
     } catch (e) {
       _status = Status.Unauthenticated;
@@ -70,6 +88,7 @@ class UserRepository with ChangeNotifier {
         idToken: googleAuth.idToken,
       );
       await _auth.signInWithCredential(credential);
+      addDataToDb(_user);
       return true;
     } catch (e) {
       print(e);
@@ -77,7 +96,6 @@ class UserRepository with ChangeNotifier {
       notifyListeners();
       return false;
     }
-
   }
 
   Future signOut() async {

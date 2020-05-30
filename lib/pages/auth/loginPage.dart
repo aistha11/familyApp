@@ -1,4 +1,3 @@
-
 import 'package:familyApp/model/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -24,7 +23,16 @@ class _LoginState extends State<Login> {
     final user = Provider.of<UserRepository>(context);
     //Asynchronous Function For Firebase Login
     googleSignIn() async {
-      print('Login With Google');
+      // print('Login With Google');
+      if (!await user.signInWithGoogle())
+        showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+            title: Text('Error'),
+            content: Text("Sorry we cann't create account now"),
+          ),
+          barrierDismissible: true,
+        );
     }
 
     facebookSignIn() async {
@@ -193,8 +201,11 @@ class _SignInState extends State<SignIn> {
               color: Colors.grey[200],
               child: TextFormField(
                 validator: (val) {
-                  return RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(val) ?
-                          null : "*Enter correct email";
+                  return RegExp(
+                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                          .hasMatch(val)
+                      ? null
+                      : "*Enter correct email";
                 },
                 controller: _email,
                 textInputAction: TextInputAction.next,
@@ -266,7 +277,6 @@ class _SignInState extends State<SignIn> {
                       builder: (_) => AlertDialog(
                         title: Text('Error'),
                         content: Text("Sorry we cann't create account now"),
-                        
                       ),
                       barrierDismissible: true,
                     );
@@ -325,8 +335,11 @@ class _SignUpState extends State<SignUp> {
               margin: EdgeInsets.only(left: 40, right: 40.0, top: 30.0),
               child: TextFormField(
                 validator: (val) {
-                  return RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(val) ?
-                          null : "*Enter correct email";
+                  return RegExp(
+                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                          .hasMatch(val)
+                      ? null
+                      : "*Enter correct email";
                 },
                 controller: _email,
                 textInputAction: TextInputAction.next,
@@ -433,20 +446,20 @@ class _SignUpState extends State<SignUp> {
                   if (_confirmPassword.text == _password.text) {
                     if (!await user.signUp(_email.text, _password.text))
                       showDialog(
-                      context: context,
-                      builder: (_) => AlertDialog(
-                        title: Text('Error'),
-                        content: Text("Sorry we cann't create account now"),
-                        
-                      ),
-                      barrierDismissible: true,
-                    );
+                        context: context,
+                        builder: (_) => AlertDialog(
+                          title: Text('Error'),
+                          content: Text("Sorry we cann't create account now"),
+                        ),
+                        barrierDismissible: true,
+                      );
                   } else
                     showDialog(
                       context: context,
                       builder: (_) => AlertDialog(
                         title: Text('Error'),
-                        content: Text("Password and Conform Password doesn't match"),
+                        content:
+                            Text("Password and Conform Password doesn't match"),
                       ),
                       barrierDismissible: true,
                     );
