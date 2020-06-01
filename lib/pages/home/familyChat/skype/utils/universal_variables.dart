@@ -19,4 +19,12 @@ class UniversalVariables {
       colors: [gradientColorStart, gradientColorEnd],
       begin: Alignment.topLeft,
       end: Alignment.bottomRight);
+  //For appBar
+  static final Color appBarColor = Colors.indigo;
+  //For Scaffold Background
+  static final Color scfBgColor = Colors.grey[400];
+  //For UserTitle Color
+  static final Color titCol = Colors.black;
+  //For User last message color
+  static final Color lastMsgCol = Colors.black26;
 }

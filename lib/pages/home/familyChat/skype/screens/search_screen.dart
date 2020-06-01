@@ -34,22 +34,24 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   searchAppBar(BuildContext context) {
-    return GradientAppBar(
-      gradient: LinearGradient(
-        colors: [
-          UniversalVariables.gradientColorStart,
-          UniversalVariables.gradientColorEnd,
-        ],
-      ),
+    return AppBar(
+      // gradient: LinearGradient(
+      //   colors: [
+      //     UniversalVariables.gradientColorStart,
+      //     UniversalVariables.gradientColorEnd,
+      //   ],
+      // ),
       leading: IconButton(
         icon: Icon(Icons.arrow_back, color: Colors.white),
         onPressed: () => Navigator.pop(context),
       ),
+      title: Text('Search'),
       elevation: 0,
       bottom: PreferredSize(
-        preferredSize: const Size.fromHeight(kToolbarHeight + 20),
-        child: Padding(
-          padding: EdgeInsets.only(left: 20),
+        preferredSize: const Size.fromHeight(kToolbarHeight + 15),
+        child: Container(
+          padding: EdgeInsets.only(left:20 , top: 10.0, right: 20.0, bottom: 10.0),
+          color: UniversalVariables.scfBgColor,
           child: TextField(
             controller: searchController,
             onChanged: (val) {
@@ -61,10 +63,14 @@ class _SearchScreenState extends State<SearchScreen> {
             autofocus: true,
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              color: Colors.white,
-              fontSize: 35,
+              color: Colors.black87,
+              fontSize: 19,
             ),
             decoration: InputDecoration(
+              prefixIcon: Icon(Icons.search, color: Colors.black38,),
+              contentPadding: EdgeInsets.all(5),
+              filled: true,
+              fillColor: Colors.white38,
               suffixIcon: IconButton(
                 icon: Icon(Icons.close, color: Colors.white),
                 onPressed: () {
@@ -72,12 +78,15 @@ class _SearchScreenState extends State<SearchScreen> {
                       .addPostFrameCallback((_) => searchController.clear());
                 },
               ),
-              border: InputBorder.none,
-              hintText: "Search",
+              border: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.all(Radius.circular(40)),
+              ),
+              hintText: "@username",
               hintStyle: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 35,
-                color: Color(0x88ffffff),
+                fontSize: 19,
+                color: Colors.black38,
               ),
             ),
           ),
@@ -130,13 +139,13 @@ class _SearchScreenState extends State<SearchScreen> {
           title: Text(
             searchedUser.username,
             style: TextStyle(
-              color: Colors.white,
+              color: UniversalVariables.titCol,
               fontWeight: FontWeight.bold,
             ),
           ),
           subtitle: Text(
             searchedUser.name,
-            style: TextStyle(color: UniversalVariables.greyColor),
+            style: TextStyle(color: UniversalVariables.lastMsgCol),
           ),
         );
       }),
@@ -147,7 +156,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return PickupLayout(
       scaffold: Scaffold(
-        backgroundColor: UniversalVariables.blackColor,
+        backgroundColor: UniversalVariables.scfBgColor,
         appBar: searchAppBar(context),
         body: Container(
           padding: EdgeInsets.symmetric(horizontal: 20),

@@ -6,6 +6,7 @@ import 'package:familyApp/pages/home/familyChat/skype/resources/chat_methods.dar
 import 'package:familyApp/pages/home/familyChat/skype/screens/chatscreens/chat_screen.dart';
 import 'package:familyApp/pages/home/familyChat/skype/screens/chatscreens/widgets/cached_image.dart';
 import 'package:familyApp/pages/home/familyChat/skype/screens/pageviews/chats/widgets/online_dot_indicator.dart';
+import 'package:familyApp/pages/home/familyChat/skype/utils/universal_variables.dart';
 import 'package:familyApp/pages/home/familyChat/skype/widgets/custom_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -51,7 +52,7 @@ class ViewLayout extends StatelessWidget {
     final UserProvider userProvider = Provider.of<UserProvider>(context);
 
     return CustomTile(
-      mini: false,
+      mini: true,
       onTap: () => Navigator.push(
           context,
           MaterialPageRoute(
@@ -62,7 +63,7 @@ class ViewLayout extends StatelessWidget {
       title: Text(
         (contact != null ? contact.name : null) != null ? contact.name : "..",
         style:
-            TextStyle(color: Colors.white, fontFamily: "Arial", fontSize: 19),
+            TextStyle(color: UniversalVariables.titCol, fontFamily: "Arial", fontSize: 19),
       ),
       subtitle: LastMessageContainer(
         stream: _chatMethods.fetchLastMessageBetween(
@@ -71,12 +72,12 @@ class ViewLayout extends StatelessWidget {
         ),
       ),
       leading: Container(
-        constraints: BoxConstraints(maxHeight: 60, maxWidth: 60),
+        constraints: BoxConstraints(maxHeight: 50, maxWidth: 50),
         child: Stack(
           children: <Widget>[
             CachedImage(
               contact.profilePhoto,
-              radius: 80,
+              radius: 50,
               isRound: true,
             ),
             OnlineDotIndicator(

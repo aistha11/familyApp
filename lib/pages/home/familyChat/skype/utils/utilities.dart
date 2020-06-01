@@ -10,7 +10,7 @@ import 'package:path_provider/path_provider.dart';
 
 class Utils {
   static String getUsername(String email) {
-    return "live:${email.split('@')[0]}";
+    return "@${email.split('@')[0]}";
   }
 
   static String getInitials(String name) {
@@ -24,7 +24,10 @@ class Utils {
 
   static Future<File> pickImage({@required ImageSource source}) async {
     File selectedImage = await ImagePicker.pickImage(source: source);
-    return await compressImage(selectedImage);
+    if (selectedImage != null) 
+      return await compressImage(selectedImage);
+    else 
+      return null;
   }
 
   static Future<File> compressImage(File imageToCompress) async {

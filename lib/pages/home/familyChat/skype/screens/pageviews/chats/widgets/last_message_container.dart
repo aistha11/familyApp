@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:familyApp/pages/home/familyChat/skype/models/message.dart';
+import 'package:familyApp/pages/home/familyChat/skype/utils/universal_variables.dart';
 import 'package:flutter/material.dart';
 
 class LastMessageContainer extends StatelessWidget {
@@ -26,7 +27,7 @@ class LastMessageContainer extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                  color: Colors.grey,
+                  color: UniversalVariables.lastMsgCol,
                   fontSize: 14,
                 ),
               ),

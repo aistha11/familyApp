@@ -1,6 +1,7 @@
 import 'package:familyApp/pages/home/familyChat/skype/provider/user_provider.dart';
 import 'package:familyApp/pages/home/familyChat/skype/utils/universal_variables.dart';
 import 'package:familyApp/pages/home/familyChat/skype/utils/utilities.dart';
+import 'package:familyApp/utils/func.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,12 +13,15 @@ class UserCircle extends StatelessWidget {
     final UserProvider userProvider = Provider.of<UserProvider>(context);
 
     return GestureDetector(
-      onTap: () => showModalBottomSheet(
-        isScrollControlled: true,
-        context: context,
-        backgroundColor: UniversalVariables.blackColor,
-        builder: (context) => UserDetailsContainer(),
-      ),
+      // onTap: () => showModalBottomSheet(
+      //   isScrollControlled: true,
+      //   context: context,
+      //   backgroundColor: UniversalVariables.blackColor,
+      //   builder: (context) => UserDetailsContainer(),
+      // ),
+      onTap: (){
+        Func.toImplement(context, "Navigate to profile page");
+      },
       child: Container(
         height: 40,
         width: 40,

@@ -114,20 +114,6 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     return PickupLayout(
       scaffold: Scaffold(
         backgroundColor: Colors.grey[200],
-        // drawer: CustomDrawer(),
-        // appBar: AppBar(
-        //   title: Text('Home'),
-        //   actions: [
-        //     IconButton(
-        //       icon: Icon(Icons.person_pin),
-        //       onPressed: () {},
-        //     ),
-        //     IconButton(
-        //       icon: Icon(Icons.people),
-        //       onPressed: () {},
-        //     ),
-        //   ],
-        // ),
         body: PageView(
           children: [
             MasterList(),
@@ -138,17 +124,6 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
           onPageChanged: onPageChanged,
           physics: NeverScrollableScrollPhysics(),
         ),
-        floatingActionButton: _page != 2
-            ? FloatingActionButton(
-                child: Icon(Icons.add),
-                onPressed: () {
-                  if (_page == 0)
-                    Navigator.pushNamed(context, "/addMasterNote");
-                  if (_page == 1)
-                    Navigator.pushNamed(context, "/addPersonalNote");
-                },
-              )
-            : null,
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _page,
           items: [

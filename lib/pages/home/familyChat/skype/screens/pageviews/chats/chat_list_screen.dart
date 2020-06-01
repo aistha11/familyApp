@@ -5,8 +5,10 @@ import 'package:familyApp/pages/home/familyChat/skype/resources/chat_methods.dar
 import 'package:familyApp/pages/home/familyChat/skype/screens/callscreens/pickup/pickup_layout.dart';
 import 'package:familyApp/pages/home/familyChat/skype/screens/pageviews/chats/widgets/contact_view.dart';
 import 'package:familyApp/pages/home/familyChat/skype/screens/pageviews/chats/widgets/quiet_box.dart';
+import 'package:familyApp/pages/home/familyChat/skype/utils/universal_variables.dart';
 // import 'package:familyApp/pages/home/familyChat/skype/utils/universal_variables.dart';
 import 'package:familyApp/pages/home/familyChat/skype/widgets/appbar.dart';
+import 'package:familyApp/utils/func.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -22,28 +24,23 @@ class ChatListScreen extends StatelessWidget {
       title: Text('Chat'),
       centerTitle: false,
       actions: <Widget>[
-        // IconButton(
-        //   icon: Icon(
-        //     Icons.search,
-        //     color: Colors.white,
-        //   ),
-        //   onPressed: () {
-        //     Navigator.pushNamed(context, "/search_screen");
-        //   },
-        // ),
         IconButton(
           icon: Icon(
             Icons.notifications,
             color: Colors.white,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Func.toImplement(context, "Get Notifications");
+          },
         ),
         IconButton(
           icon: Icon(
             Icons.more_vert,
             color: Colors.white,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Func.toImplement(context, "More Options");
+          },
         ),
       ],
     );
@@ -53,7 +50,7 @@ class ChatListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return PickupLayout(
       scaffold: Scaffold(
-        backgroundColor: Colors.grey[600],
+        backgroundColor: UniversalVariables.scfBgColor,
         appBar: customAppBar(context),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.search),
