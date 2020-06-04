@@ -1,100 +1,117 @@
+import 'package:familyApp/models/user.dart';
+import 'package:familyApp/pages/home/familyChat/chatscreens/widgets/cached_image.dart';
+import 'package:familyApp/pages/widgets/appbar.dart';
+import 'package:familyApp/provider/user_provider.dart';
+import 'package:familyApp/resources/auth_methods.dart';
+import 'package:familyApp/utils/universal_variables.dart';
+import 'package:familyApp/utils/utilities.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
-class Profile extends StatefulWidget {
-  @override
-  _ProfileState createState() => _ProfileState();
-}
+class Profile extends StatelessWidget {
+  final AuthMethods authMethods = AuthMethods.instance();
 
-class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
-    bool showIcon = false;
-
+    final UserProvider userProvider = Provider.of<UserProvider>(context);
+    final User user = userProvider.getUser;
     return Scaffold(
-      body: ListView(
-        children: [
-          //Profile Details Section (Cover Photo, DP, Full Name, Address)
-          Container(
-            child: Column(
-              children: <Widget>[
-                //Profile
-                buildDP(
-                    'https://www.kindpng.com/picc/m/404-4042774_profile-photo-circle-circle-profile-picture-png-transparent.png'),
-                //Profile Details
-                buildProfileDetails('Deadpool', 'Kathmandu', 'Nepal', showIcon),
-              ],
-            ),
+      backgroundColor: UniversalVariables.blackColor,
+      appBar: CustomAppBar(
+        leading: IconButton(
+          icon: Icon(
+            Icons.clear,
+            color: Colors.white,
           ),
-        ],
+          onPressed: () => Navigator.pop(context),
+        ),
+        centerTitle: true,
+        appCol: UniversalVariables.blackColor,
+        title: Text("Profile"),
       ),
-    );
-  }
-
-  Widget buildDP(String img, {double radius = 80}) {
-    return CircleAvatar(
-      backgroundColor: Colors.white,
-      radius: radius,
-      child: CircleAvatar(
-        radius: radius - 2,
-        backgroundImage: NetworkImage(img),
-      ),
-    );
-  }
-
-  Widget buildProfileDetails(
-      String name, String city, String country, bool showIcon) {
-    return Container(
-      margin: EdgeInsets.only(left: 20.0, top: 10.0),
-      child: Column(
-        // mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            name,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19.0),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Icon(
-                Icons.location_on,
-                size: 16.0,
-                color: Colors.grey,
+      body: Container(
+        margin: EdgeInsets.only(top: 25),
+        child: Column(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+              child: Column(
+                children: [
+                  user.profilePhoto != null
+                      ? CachedImage(
+                          user.profilePhoto,
+                          isRound: true,
+                          radius: 80,
+                        )
+                      : Container(
+                          height: 80,
+                          width: 80,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: UniversalVariables.separatorColor,
+                          ),
+                          child: Center(
+                            child: Text(
+                              Utils.getInitials(user.name),
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: UniversalVariables.lightBlueColor,
+                                fontSize: 20,
+                              ),
+                            ),
+                          )),
+                  SizedBox(height: 15),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        user.name,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        user.email,
+                        style: TextStyle(fontSize: 14, color: Colors.white),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 60.0,
+                  ),
+                  ListTile(
+                    title: Text(
+                      "Settings",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    contentPadding: EdgeInsets.only(left: 70.0),
+                    onTap: () {},
+                  ),
+                  ListTile(
+                    title: Text(
+                      "Help & Tips",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    contentPadding: EdgeInsets.only(left: 70.0),
+                    onTap: () {},
+                  ),
+                  ListTile(
+                    title: Text(
+                      "About",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    contentPadding: EdgeInsets.only(left: 70.0),
+                    onTap: () {},
+                  ),
+                ],
               ),
-              Text(
-                "$city, $country",
-                style: TextStyle(color: Colors.grey.shade600),
-              )
-            ],
-          ),
-          //Social Links Icons
-          showIcon ? buildIconRow() : Padding(padding: EdgeInsets.all(0.0)),
-        ],
+            )
+          ],
+        ),
       ),
-    );
-  }
-
-  Widget buildIconRow() {
-    return Row(
-      children: <Widget>[
-        IconButton(
-          color: Colors.grey,
-          icon: Icon(FontAwesomeIcons.instagram),
-          onPressed: () {},
-        ),
-        IconButton(
-          color: Colors.grey,
-          icon: Icon(FontAwesomeIcons.facebookF),
-          onPressed: () {},
-        ),
-        IconButton(
-          color: Colors.grey.shade600,
-          icon: Icon(FontAwesomeIcons.twitter),
-          onPressed: () {},
-        ),
-      ],
     );
   }
 }

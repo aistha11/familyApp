@@ -1,61 +1,21 @@
-import 'package:familyApp/model/note.dart';
-import 'package:familyApp/pages/home/familyChat/skype/screens/callscreens/pickup/pickup_layout.dart';
-import 'package:familyApp/pages/home/familyChat/skype/screens/pageviews/chats/widgets/user_circle.dart';
-import 'package:familyApp/pages/home/familyChat/skype/widgets/appbar.dart';
+
+import 'package:familyApp/models/note.dart';
 import 'package:familyApp/pages/home/personalList/addPersonalNote.dart';
 import 'package:familyApp/pages/widgets/notesItem.dart';
-// import 'package:familyApp/pages/widgets/listDetail.dart';
+import 'package:familyApp/provider/user_provider.dart';
 import 'package:familyApp/services/db_service.dart';
-import 'package:familyApp/utils/func.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class PersonalList extends StatelessWidget {
-  CustomAppBar customPersonalAppBar(BuildContext context) {
-    // final UserProvider userProvider = Provider.of<UserProvider>(context);
-
-    return CustomAppBar(
-      leading: UserCircle(),
-      title: Text('Personal List'),
-      centerTitle: false,
-      actions: <Widget>[
-        // IconButton(
-        //   icon: Icon(
-        //     Icons.search,
-        //     color: Colors.white,
-        //   ),
-        //   onPressed: () {
-        //     Navigator.pushNamed(context, "/search_screen");
-        //   },
-        // ),
-        IconButton(
-          icon: Icon(
-            Icons.notifications,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Func.toImplement(context, "Get Notifications");
-          },
-        ),
-        IconButton(
-          icon: Icon(
-            Icons.more_vert,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Func.toImplement(context, "More Options");
-          },
-        ),
-      ],
-    );
-  }
-
+  
   @override
   Widget build(BuildContext context) {
-    return PickupLayout(
-          scaffold: Scaffold(
-        appBar: customPersonalAppBar(context),
+    final UserProvider userProvider = Provider.of<UserProvider>(context);
+    print(userProvider.getUser.uid);
+    return  Scaffold(
         body: StreamBuilder(
-          stream: personalnotesDb.streamList(),
+          stream: personalnotesDb.streamList(userProvider.getUser.uid),
           builder: (BuildContext context, AsyncSnapshot<List<Note>> snapshot) {
             if (snapshot.hasError)
               return Container(
@@ -120,8 +80,7 @@ class PersonalList extends StatelessWidget {
             Navigator.pushNamed(context, "/addPersonalNote");
           },
         ),
-      ),
-    );
+      );
   }
 
   Future<bool> _confirmDelete(BuildContext context) async {

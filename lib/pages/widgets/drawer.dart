@@ -1,10 +1,11 @@
-import 'package:familyApp/model/user_repository.dart';
+
+import 'package:familyApp/resources/auth_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CustomDrawer extends StatelessWidget {
 
-  final UserRepository _auth = UserRepository.instance();
+  final AuthMethods _auth = AuthMethods.instance();
 
   @override
   Widget build(BuildContext context) {

@@ -1,13 +1,11 @@
-import 'package:familyApp/pages/home/familyChat/skype/enum/user_state.dart';
-import 'package:familyApp/pages/home/familyChat/skype/provider/user_provider.dart';
-import 'package:familyApp/pages/home/familyChat/skype/resources/auth_methods.dart';
-import 'package:familyApp/pages/home/familyChat/skype/screens/callscreens/pickup/pickup_layout.dart';
-import 'package:familyApp/pages/home/familyChat/skype/screens/pageviews/chats/chat_list_screen.dart';
+import 'package:familyApp/enum/user_state.dart';
+import 'package:familyApp/pages/home/familyChat/chats/chat_list_screen.dart';
+import 'package:familyApp/pages/home/familyChat/chats/widgets/user_circle.dart';
 import 'package:familyApp/pages/home/masterList/masterList.dart';
-import 'package:familyApp/pages/home/ourFamily/ourFamily.dart';
 import 'package:familyApp/pages/home/personalList/personalList.dart';
-import 'package:familyApp/pages/home/profile/profile.dart';
-import 'package:familyApp/pages/widgets/drawer.dart';
+import 'package:familyApp/pages/widgets/appbar.dart';
+import 'package:familyApp/provider/user_provider.dart';
+import 'package:familyApp/resources/auth_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +22,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
   int _page = 0;
   UserProvider userProvider;
 
-  final AuthMethods _authMethods = AuthMethods();
+  final AuthMethods _authMethods = AuthMethods.instance();
 
   @override
   void initState() {
@@ -99,20 +97,23 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     pageController.jumpToPage(page);
   }
 
+  Widget getTitle() {
+    if (_page == 0)
+      return Text('Master List');
+    else if (_page == 1)
+      return Text('Personal List');
+    else
+      return Text('Chat');
+  }
+
   @override
   Widget build(BuildContext context) {
-    // final _tabPages = [
-    //   MasterList(),
-    //   PersonalList(),
-    //   // FamilyChat(),
-    //   // ChatRoom(),
-    //   ChatListScreen(),
-    //   Profile(),
-    //   OurFamily(),
-    // ];
-
-    return PickupLayout(
-      scaffold: Scaffold(
+    return  Scaffold(
+        appBar: CustomAppBar(
+          leading: UserCircle(),
+          title: getTitle(),
+          centerTitle: false,
+        ),
         backgroundColor: Colors.grey[200],
         body: PageView(
           children: [
@@ -166,7 +167,6 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
           ],
           onTap: navigationTapped,
         ),
-      ),
-    );
+      );
   }
 }

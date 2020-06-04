@@ -1,5 +1,5 @@
-import 'package:familyApp/model/note.dart';
-import 'package:familyApp/model/user_repository.dart';
+import 'package:familyApp/models/note.dart';
+import 'package:familyApp/resources/auth_methods.dart';
 import 'package:familyApp/services/db_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -66,7 +66,7 @@ class _AddPersonalNoteState extends State<AddPersonalNote> {
                   id: _editMode ? widget.note.id : null,
                   title: _titleController.text,
                   createdAt: DateTime.now(),
-                  userId: Provider.of<UserRepository>(context,listen: false).user.uid,
+                  userId: Provider.of<AuthMethods>(context,listen: false).user.uid,
                 );
                 if(_editMode) {
                   await personalnotesDb.updateItem(note);

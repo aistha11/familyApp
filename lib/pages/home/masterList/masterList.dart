@@ -1,61 +1,63 @@
-import 'package:familyApp/model/note.dart';
-import 'package:familyApp/pages/home/familyChat/skype/screens/callscreens/pickup/pickup_layout.dart';
-import 'package:familyApp/pages/home/familyChat/skype/screens/pageviews/chats/widgets/user_circle.dart';
-import 'package:familyApp/pages/home/familyChat/skype/widgets/appbar.dart';
+
+import 'package:familyApp/models/note.dart';
+// import 'package:familyApp/pages/home/familyChat/chats/widgets/user_circle.dart';
 import 'package:familyApp/pages/home/masterList/addMasterNote.dart';
+// import 'package:familyApp/pages/widgets/appbar.dart';
 import 'package:familyApp/pages/widgets/notesItem.dart';
-// import 'package:familyApp/pages/widgets/listDetail.dart';
+import 'package:familyApp/provider/user_provider.dart';
 import 'package:familyApp/services/db_service.dart';
-import 'package:familyApp/utils/func.dart';
+// import 'package:familyApp/utils/func.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MasterList extends StatelessWidget {
-  CustomAppBar customMasterAppBar(BuildContext context) {
-    // final UserProvider userProvider = Provider.of<UserProvider>(context);
-
-    return CustomAppBar(
-      leading: UserCircle(),
-      title: Text('Master List'),
-      centerTitle: false,
-      actions: <Widget>[
-        // IconButton(
-        //   icon: Icon(
-        //     Icons.search,
-        //     color: Colors.white,
-        //   ),
-        //   onPressed: () {
-        //     Navigator.pushNamed(context, "/search_screen");
-        //   },
-        // ),
-        IconButton(
-          icon: Icon(
-            Icons.notifications,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Func.toImplement(context, "Get Notifications");
-          },
-        ),
-        IconButton(
-          icon: Icon(
-            Icons.more_vert,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Func.toImplement(context, "More Options");
-          },
-        ),
-      ],
-    );
-  }
+  // CustomAppBar customMasterAppBar(BuildContext context) {
+  //   // final UserProvider userProvider = Provider.of<UserProvider>(context);
+  //   return CustomAppBar(
+  //     leading: UserCircle(),
+  //     title: Text('Master List'),
+  //     centerTitle: false,
+  //     actions: <Widget>[
+  //       // IconButton(
+  //       //   icon: Icon(
+  //       //     Icons.search,
+  //       //     color: Colors.white,
+  //       //   ),
+  //       //   onPressed: () {
+  //       //     Navigator.pushNamed(context, "/search_screen");
+  //       //   },
+  //       // ),
+  //       IconButton(
+  //         icon: Icon(
+  //           Icons.notifications,
+  //           color: Colors.white,
+  //         ),
+  //         onPressed: () {
+  //           Func.toImplement(context, "Get Notifications");
+  //         },
+  //       ),
+  //       IconButton(
+  //         icon: Icon(
+  //           Icons.more_vert,
+  //           color: Colors.white,
+  //         ),
+  //         onPressed: () {
+  //           Func.toImplement(context, "More Options");
+  //         },
+  //       ),
+  //     ],
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
-    return PickupLayout(
-          scaffold: Scaffold(
-        appBar: customMasterAppBar(context),
+
+    final UserProvider userProvider = Provider.of<UserProvider>(context);
+    print(userProvider.getUser.uid);
+    return  Scaffold(
+        // appBar: customMasterAppBar(context),
         body: StreamBuilder(
-          stream: masternotesDb.streamList(),
+          stream: masternotesDb.streamList(userProvider.getUser.uid),
           builder: (BuildContext context, AsyncSnapshot<List<Note>> snapshot) {
             if (snapshot.hasError)
               return Container(
@@ -114,8 +116,7 @@ class MasterList extends StatelessWidget {
             Navigator.pushNamed(context, "/addMasterNote");
           },
         ),
-      ),
-    );
+      );
   }
 
   Future<bool> _confirmDelete(BuildContext context) async {

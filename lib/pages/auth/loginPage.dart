@@ -1,4 +1,7 @@
-import 'package:familyApp/model/user_repository.dart';
+import 'package:familyApp/enum/auth_state.dart';
+import 'package:familyApp/resources/auth_methods.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:familyApp/resources/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -12,6 +15,9 @@ class _LoginState extends State<Login> {
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
 
   bool signInForm;
+
+  AuthMethods _authMethods = AuthMethods.instance();
+
   @override
   void initState() {
     super.initState();
@@ -20,19 +26,18 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserRepository>(context);
+    final user = Provider.of<AuthMethods>(context);
     //Asynchronous Function For Firebase Login
     googleSignIn() async {
       // print('Login With Google');
-      if (!await user.signInWithGoogle())
-        showDialog(
-          context: context,
-          builder: (_) => AlertDialog(
-            title: Text('Error'),
-            content: Text("Sorry we cann't create account now"),
-          ),
-          barrierDismissible: true,
-        );
+      FirebaseUser user = await _authMethods.signInWithGoogle(); 
+      if(user!=null){
+        _authMethods.authenticateUser(user).then((isNewUser){
+          if(isNewUser)
+            _authMethods.addDataToDb(user);
+        });
+      }
+      
     }
 
     facebookSignIn() async {
@@ -183,7 +188,7 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserRepository>(context);
+    final user = Provider.of<AuthMethods>(context);
     return Container(
       padding: EdgeInsets.all(10.0),
       child: Form(
@@ -276,7 +281,7 @@ class _SignInState extends State<SignIn> {
                       context: context,
                       builder: (_) => AlertDialog(
                         title: Text('Error'),
-                        content: Text("Sorry we cann't create account now"),
+                        content: Text("Sorry we cann't log into your account now"),
                       ),
                       barrierDismissible: true,
                     );
@@ -317,7 +322,7 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserRepository>(context);
+    final user = Provider.of<AuthMethods>(context);
 
     return Container(
       padding: EdgeInsets.all(10.0),
